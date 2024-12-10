@@ -1,32 +1,75 @@
 body {
-    background-color: black;
+    background-color: #1E2337;
     color: white;
     display: flex;
     height: 100%;
     margin: 0;
     align-items: center;
     justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
 }
 
 div .info{
     display: flex;
-    background-color: red;
+    background-color: #00000000;
     border-radius: 30px;
     padding: 0 10px;
-    margin: 10px 0;
+    justify-content: center;
 }
 
+div .infolist{
+    display: flex;
+    background-color: #00000000;
+    border-radius: 30px;
+    padding: 0 10px;
+    align-items: center; /* Центрирование по вертикали */
+    justify-content: center; /* Центрирование по горизонтали */    
+    flex-direction: column;
+}
 
 p {
     margin: 10px;
+    background-color: black;
+    padding: 20px;
+    border: 0;
+    border-radius: 15px;
 }
 
 #main {
     display: flex;
     flex-direction: column;
+    width: 80%;
+    justify-content: center;
 }
 
-div#shedule {
-    align-items: center;
-    justify-items: center;
+.lesson {
+    background-color: black;
+    padding: 10px;
+    border: 0;
+    border-radius: 15px;
+    margin: 5px;
+    width: 60%;
+}
+.control {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+}
+.rowButton {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    font-size: large;
+    border: 0;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    margin: 2px 2px;
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
 }
