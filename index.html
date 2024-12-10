@@ -1,0 +1,40 @@
+<head>
+    <title>Расписание</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<script>
+    const shortNameDay = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Суб" ];
+    const nameDay = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+    
+    function getTodayNumber() {
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        return dayOfWeek
+    }
+
+    function getTommorowNumber() {
+        const today = new Date();
+        const dayOfWeek = today.getDay() + 1;
+        return dayOfWeek
+    }
+
+
+
+    console.log(`Сегодня: ${nameDay[getTommorowNumber()]}`);
+</script>
+
+<body>
+    <div id="main">
+
+        <div class="info" id="naming">
+            <p>Расписание</p>
+            <p>Числитель</p>
+        </div>
+
+        <div class="info" id="schedule">
+            <p>Расписание</p>
+        </div>
+
+    </div>
+</body>
