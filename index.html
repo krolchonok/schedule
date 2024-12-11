@@ -4,27 +4,25 @@
 </head>
 
 <body>
-    <div id="main">
-
-        <div class="info" id="naming">
-            <p>Расписание</p>
-            <p>Числитель</p>
+    <div class="main">
+        <div class="info" >
+            <div class="lesson" id="today_naming">сегодня: </div>
         </div>
 
         <div class="infolist" id="schedule">
             <p id="showSchedue">Расписание</p>
         </div>
-        <div style="display: flex; justify-content: center">
         <div class="control" id="control">
-            <div class="rowButton">
-                <button id="today">Сегодня</button>
-                <button id="tommorow">Завтра</button>
-            </div>
-            <div class="rowButton">
-                <button id="selectDay">Определенный день</button>
+            <div class="buttons">
+                <div class="rowButton">
+                    <button id="today">Сегодня</button>
+                    <button id="tommorow">Завтра</button>
+                </div>
+                <div class="rowButton">
+                    <button id="selectDay">Определенный день</button>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 
@@ -155,8 +153,10 @@
         var textToShow = "";
         shower.textContent = "";
         const lessonDiv = document.createElement('div');
-        lessonDiv.classList.add('lesson');
-        lessonDiv.innerHTML = nameDay[nameDayC];
+        lessonDiv.classList.add('nameDay');
+        lessonDiv.innerHTML = nameWeekC 
+            ? `${nameDay[nameDayC]} | ${nameWeekC}` 
+            : `${nameDay[nameDayC]}`;
         shower.appendChild(lessonDiv);
         if (nowDay.length === 2) {
             const text = infoShedule[nameWeekC]
@@ -199,4 +199,15 @@
     document.getElementById("today").onclick = today;
     
     document.getElementById("tommorow").onclick = tommorow;
+
+    const date = new Date();
+
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0'); 
+
+    const formattedDate = `${dd}.${mm}`;
+
+    document.getElementById("today_naming").textContent = `${formattedDate} | ${getNowWeekName()} | ${nameDay[getTodayNumber()]}`
+    
+    today();
 </script>
