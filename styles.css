@@ -6,6 +6,7 @@
   --tg-theme-button-color: #0098ea;
   --tg-theme-bg-color: #1e2337;
   --tg-theme-text-color: white;
+  --tg-theme-bg-secondary-color: #2e3657;
 }
 
 button {
@@ -13,7 +14,7 @@ button {
   width: 100%;
   border: 0;
   background-color: var(--tg-theme-button-color);
-  color: white;
+  color: var(--tg-theme-button-text-color);
   height: 100%;
 }
 
@@ -71,11 +72,12 @@ body {
   justify-content: center;
   align-items: center;
   width: 95%;
-  background-color: var(--tg-theme-button-color);
+  background-color: var(--tg-theme-bg-secondary-color);
   padding: 0.5rem 0;
   margin: 0.2rem 1rem;
   border: 0;
   border-radius: 1rem;
+  color: var(--tg-theme-button-text-color);
 }
 .inInfoBlock {
   padding: 0 0.5rem;
