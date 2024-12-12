@@ -65,6 +65,7 @@ body {
   padding: 0.7rem 0;
   border: 0;
   border-radius: 0 0 1rem 1rem;
+  color: var(--tg-theme-button-text-color);
 }
 
 .infoBlock {
@@ -79,10 +80,12 @@ body {
   border-radius: 1rem;
   color: var(--tg-theme-button-text-color);
 }
+
 .inInfoBlock {
   padding: 0 0.5rem;
   width: 100%;
   font-size: 0.9rem;
+  color: var(--tg-theme-text-color);
 }
 
 .listInfo {
