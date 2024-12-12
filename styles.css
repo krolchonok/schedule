@@ -1,172 +1,105 @@
 :root {
-    --tg-theme-button-text-color: white;
-    --tg-theme-button-color: #323338;
-    --tg-theme-bg-color: #1E2337;
-    --tg-theme-text-color: white;
-    --semibackground: #323338;
-}
-body {
-    background-color: var(--tg-theme-bg-color);
-    color: var(--tg-theme-button-text-color);
-    display: flex;
-    height: 100%;
-    margin: 0;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-}
-
-.info{
-    display: flex;
-    background-color: #00000000;
-    border-radius: 30px;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    width: 100%;
-}
-
-.infolist{
-    display: flex;
-    background-color: #00000000;
-    border-radius: 30px;
-    align-items: center; /* Центрирование по вертикали */
-    justify-content: center; /* Центрирование по горизонтали */    
-    flex-direction: column;
-}
-
-p {
-    margin: 10px;
-    background-color: var(--tg-theme-button-color);
-    padding: 20px;
-    border: 0;
-    border-radius: 15px;
-}
-
-#main {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    justify-content: center;
-}
-
-.nameDay {
-    background-color: var(--tg-theme-button-color);
-    padding: 10px;
-    border: 0;
-    border-radius: 15px;
-    margin: 5px;
-    width: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.lesson {
-    background-color: var(--tg-theme-button-color);
-    padding: 10px;
-    border: 0;
-    border-radius: 15px;
-    margin: 5px;
-    width: 60%;
-}
-.control {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 50%;
-}
-.rowButton {
-    display: flex;
-    justify-content: center;
-
+  background-color: var(--tg-theme-bg-color);
+  color: white;
+  font-size: 1.5rem;
+  --tg-theme-button-text-color: white;
+  --tg-theme-button-color: #0098ea;
+  --tg-theme-bg-color: #1e2337;
+  --tg-theme-text-color: white;
 }
 
 button {
-    font-size: large;
-    border: 0;
-    background-color: var(--tg-theme-button-color);
-    color: var(--tg-theme-button-text-color);
-    padding: 10px;
-    margin: 2px 2px;
-    border-radius: 15px;
-    width: 100%;
-    cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  border: 0;
+  background-color: var(--tg-theme-button-color);
+  color: white;
+  height: 100%;
 }
 
 body {
-    font-size: 3vh;
-    width: 100%;
-}
-
-#main, #schedule {
-    width: 100%;
-    margin-top: 15vh;
-    margin-bottom: 20vh;
-    overflow: auto;
+  margin: 0;
 }
 
 .main {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    display: flex;
-    padding-top: 50px;
+  margin: 2.9rem 0 3.8rem 0;
 }
 
-.lesson, .nameDay {
-    width: 90%;
-    border-radius: 4vw;
-    padding: 3vw;
-}
-p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 3vw;
-    border-radius: 4vw;
-}
-.infopanel {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#today_naming {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.control {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    margin-bottom: 2vw;
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
-button {
-    font-size: 5vw;
-    width: 100%;
-    flex: 1;    
-    border-radius: 5vw;
-    padding: 2vw;
-    margin: 0.6vw; 
+.bottombar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3.5rem;
 }
 
 .rowButton {
-    width: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.buttons {
-    width: 95%;
-    display: flex;
-    flex-direction: column;
+.infoDateBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: var(--tg-theme-button-color);
+  padding: 0.7rem 0;
+  border: 0;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.infoBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  background-color: var(--tg-theme-button-color);
+  padding: 0.5rem 0;
+  margin: 0.2rem 1rem;
+  border: 0;
+  border-radius: 1rem;
+}
+.inInfoBlock {
+  padding: 0 0.5rem;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.listInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#today {
+  border-top-left-radius: 1rem;
+  padding-right: 0.5px;
+}
+
+#tommorow {
+  border-top-right-radius: 1rem;
+  border-left: 1px solid red;
+  padding-left: 0.5px;
+}
+#selectDay {
+  border-top: 1px solid red;
 }

@@ -1,36 +1,43 @@
 <head>
     <title>Расписание</title>
     <link rel="stylesheet" href="styles.css">
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<head>
+    <title>Расписание</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 
 <body>
-    <div class="info" >
-        <div class="lesson" id="today_naming">сегодня: </div>
+    <div class="navbar">
+        <div class="infoDateBlock" id="today_naming"></div>
     </div>
+
     <div class="main">
-        <div class="infolist" id="schedule">
-            <p id="showSchedue">Расписание</p>
+        <div class="listInfo" id="listInfo">
         </div>
     </div>
-    <div class="control" id="control">
-        <div class="buttons">
-            <div class="rowButton">
-                <button id="today">Сегодня</button>
-                <button id="tommorow">Завтра</button>
-            </div>
-            <div class="rowButton">
-                <button id="selectDay">Определенный день</button>
-            </div>
+
+    <div class="bottombar">
+        <div style="border-radius: 20px 0 0 0;" class="rowButton">
+            <button id="today">Сегодня</button>
+            <button id="tommorow">Завтра</button>
+        </div>
+        <div class="rowButton">
+            <button id="selectDay">Определенный день</button>
         </div>
     </div>
 </body>
 
 <script>
-    const shortNameDay = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Суб" ];
+    const shortNameDay = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Суб"];
     const nameDay = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-    const shower = document.getElementById("schedule")
+    const shower = document.getElementById("listInfo")
 
     function getTodayNumber() {
         const today = new Date();
@@ -44,49 +51,49 @@
         return dayOfWeek
     }
 
-    function getNowWeekName(tommorow=false) {
+    function getNowWeekName(tommorow = false) {
         var today = new Date();
 
         if (tommorow != false) {
-            today.setDate(today.getDate() + 1); 
+            today.setDate(today.getDate() + 1);
         }
 
-        var dd = today.getDate(); 
-        var mm = today.getMonth()+1; 
-        var yyyy = today.getFullYear(); 
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
         var newYear = false;
-        if (dd < 10) { 
-            dd = '0' + dd; 
-        } 
-        if (mm < 10) { 
-            mm = '0' + mm; 
-        } 
-        if(mm < 9) {
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        if (mm < 9) {
             newYear = true;
-            Yseptember = yyyy-1
-            var september = new Date(yyyy-1, 8, 1);
-        } else{
+            Yseptember = yyyy - 1
+            var september = new Date(yyyy - 1, 8, 1);
+        } else {
             Yseptember = yyyy
             var september = new Date(yyyy, 8, 1);
         }
-        dayOfSeptember = (september.getDay() + 6) % 7; 
+        dayOfSeptember = (september.getDay() + 6) % 7;
 
         if (dayOfSeptember == 6) {
-            firstWeak = new Date(Yseptember, 8,1)
+            firstWeak = new Date(Yseptember, 8, 1)
         } else {
             firstWeak = new Date(Yseptember, 7, 31 - dayOfSeptember)
         }
 
-        var WeaksNumber = Math.ceil((today - firstWeak ) / (7 * 24 * 60 * 60 * 1000))-1;
-        if (WeaksNumber%2 ==0) {
+        var WeaksNumber = Math.ceil((today - firstWeak) / (7 * 24 * 60 * 60 * 1000)) - 1;
+        if (WeaksNumber % 2 == 0) {
             today = 'Числитель';
         } else {
             today = 'Знаменатель';
         }
         return today
-    }    
+    }
 
-    function parseToNormalView (array) {
+    function parseToNormalView(array) {
         time = `${array[1]} - ${array[2]}`
         name = `${array[3]}`
         switch (array[4]) {
@@ -114,8 +121,8 @@
 
     const schedulejson = {
         "Понедельник": {
-            "Числитель": "8:30-10:00 Теория информации и кодирования (Л), доцент Задорожнева Ю.В., Ауд. 1-19 М<br>10:10-11:40 Теория информации и кодирования (Лаб), доцент Задорожнева Ю.В., Ауд. 2-3б М<br>12:00-13:30 Линии связи (Л),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М<br>13:40-15:10 Линии связи (Л),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М",
-            "Знаменатель": "8:30-10:00 Теория информации и кодирования (Л), доцент Задорожнева Ю.В., Ауд. 1-19 М<br>10:10-11:40 Теория информации и кодирования (Лаб), доцент Задорожнева Ю.В., Ауд. 2-3б М<br>12:00-13:30 Линии связи (Пр),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М<br>13:40-15:10 Линии связи (Пр),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М"
+            "Числитель": "08:30-10:00 Теория информации и кодирования (Л), доцент Задорожнева Ю.В., Ауд. 1-19 М<br>10:10-11:40 Теория информации и кодирования (Лаб), доцент Задорожнева Ю.В., Ауд. 2-3б М<br>12:00-13:30 Линии связи (Л),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М<br>13:40-15:10 Линии связи (Л),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М",
+            "Знаменатель": "08:30-10:00 Теория информации и кодирования (Л), доцент Задорожнева Ю.В., Ауд. 1-19 М<br>10:10-11:40 Теория информации и кодирования (Лаб), доцент Задорожнева Ю.В., Ауд. 2-3б М<br>12:00-13:30 Линии связи (Пр),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М<br>13:40-15:10 Линии связи (Пр),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М"
         },
         "Вторник": {
             "Числитель": "12:00-13:30 Комплексная система защиты информации (Л), доцент Стебенькова Н.А., Ауд. 2-17 М<br>13:40-15:10 Теория электросвязи (Л), старший преподаватель Ермакова Н.Н., Ауд. 2-17 М<br>15:20-16:50 Теория электросвязи (Пр), старший преподаватель Ермакова Н.Н., Ауд. 2-17 М<br>17:00-18:30 Электроника и схемотехника (Пр), доцент Стебеньков А.М., Ауд. 2-17 М",
@@ -130,9 +137,9 @@
             "Числитель": "12:00-13:30 Системы коммутаций (Лаб), доцент Семенов Е.С., Ауд. 2-06 М<br>13:40-15:10 Комплексная система защиты информации (Лаб), доцент Стебенькова Н.А., Ауд. 2-13а М<br>15:20-16:50 Комплексная система защиты информации (Лаб), доцент Стебенькова Н.А., Ауд. 1-19 М",
             "Знаменатель": "12:00-13:30 Системы коммутаций (Лаб), доцент Семенов Е.С., Ауд. 2-06 М<br>13:40-15:10 Системы коммутаций (Пр), доцент Семенов Е.С., Ауд. 2-13 М<br>15:20-16:50 Теория информации и кодирования (Пр), доцент Задорожнева Ю.В., Ауд. 1-19 М"
         },
-        "Суббота": "8:30-10:00 Электроника и схемотехника (Л), доцент Стебеньков А.М., Ауд. 2-01 К<br>10:10-11:40 Электроника и схемотехника (Лаб), доцент Стебеньков А.М., Ауд. 3-15 К<br>12:00-13:30 Сети и системы передачи информации (Лаб), ассистент Ромасевич Е.П.,  Ауд. 2-13б М<br>13:40-15:10 Цифровые системы передачи (Лаб), ассистент Ромасевич Е.П.,  Ауд. 2-13б М"
+        "Суббота": "08:30-10:00 Электроника и схемотехника (Л), доцент Стебеньков А.М., Ауд. 2-01 К<br>10:10-11:40 Электроника и схемотехника (Лаб), доцент Стебеньков А.М., Ауд. 3-15 К<br>12:00-13:30 Сети и системы передачи информации (Лаб), ассистент Ромасевич Е.П.,  Ауд. 2-13б М<br>13:40-15:10 Цифровые системы передачи (Лаб), ассистент Ромасевич Е.П.,  Ауд. 2-13б М"
     }
-    
+
     function checkSplit(day) {
         const infoShedule = schedulejson[nameDay[day]]
         const nowDay = Object.keys(infoShedule)
@@ -142,9 +149,9 @@
             return false
         }
     }
-    
+
     function getDaySchedule(nameDayC, nameWeekC) {
-        
+
         const infoShedule = schedulejson[nameDay[nameDayC]]
         console.log(infoShedule)
         const nowDay = Object.keys(infoShedule)
@@ -154,30 +161,42 @@
         var textToShow = "";
         shower.textContent = "";
         const lessonDiv = document.createElement('div');
-        lessonDiv.classList.add('nameDay');
-        lessonDiv.innerHTML = nameWeekC 
-            ? `${nameDay[nameDayC]} | ${nameWeekC}` 
+        lessonDiv.classList.add('infoBlock');
+        lessonDiv.innerHTML = nameWeekC
+            ? `${nameDay[nameDayC]} | ${nameWeekC}`
             : `${nameDay[nameDayC]}`;
         shower.appendChild(lessonDiv);
         if (nowDay.length === 2) {
             const text = infoShedule[nameWeekC]
             const list = text.split("<br>");
-            list.forEach(function(element, index, array) {
-                console.log(element);
+            list.forEach(function (element, index, array) {
                 const match = element.match(regex);
-                console.log(match);
+
+
                 const lessonDiv = document.createElement('div');
-                lessonDiv.classList.add('lesson');
-                lessonDiv.innerHTML = parseToNormalView(match);
+                lessonDiv.classList.add('infoBlock');
+
+                const lessonDivIn = document.createElement('div');
+                lessonDivIn.innerHTML = parseToNormalView(match);
+                lessonDivIn.classList.add('inInfoBlock');
+                lessonDiv.appendChild(lessonDivIn);
+
                 shower.appendChild(lessonDiv);
             });
         } else {
             const list = infoShedule.split("<br>");
-            list.forEach(function(element, index, array) {
+            list.forEach(function (element, index, array) {
+                console.log(element);
                 const match = element.match(regex);
+                console.log(match);
                 const lessonDiv = document.createElement('div');
-                lessonDiv.classList.add('lesson');
-                lessonDiv.innerHTML = parseToNormalView(match);
+                lessonDiv.classList.add('infoBlock');
+
+                const lessonDivIn = document.createElement('div');
+                lessonDivIn.innerHTML = parseToNormalView(match);
+                lessonDivIn.classList.add('inInfoBlock');
+                lessonDiv.appendChild(lessonDivIn);
+
                 shower.appendChild(lessonDiv);
             });
         }
@@ -200,17 +219,17 @@
     }
 
     document.getElementById("today").onclick = today;
-    
+
     document.getElementById("tommorow").onclick = tommorow;
 
     const date = new Date();
 
     const dd = String(date.getDate()).padStart(2, '0');
-    const mm = String(date.getMonth() + 1).padStart(2, '0'); 
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yy = String(date.getFullYear());
+    const formattedDate = `${dd}.${mm}.${yy}`;
 
-    const formattedDate = `${dd}.${mm}`;
+    document.getElementById("today_naming").textContent = `${getNowWeekName()} | ${formattedDate}   `
 
-    document.getElementById("today_naming").textContent = `${formattedDate} | ${getNowWeekName()} | ${nameDay[getTodayNumber()]}`
-    
     today();
 </script>
