@@ -74,6 +74,9 @@ p {
     flex-direction: column;
     width: 50%;
 }
+.main {
+    width: 90%;
+}
 .rowButton {
     display: flex;
     justify-content: center;
@@ -83,7 +86,7 @@ button {
     font-size: large;
     border: 0;
     background-color: var(--tg-theme-button-color);
-    color: white;
+    color: var(--tg-theme-button-text-color);
     padding: 10px;
     margin: 2px 2px;
     border-radius: 15px;
@@ -99,6 +102,10 @@ button {
 
     #main, #schedule {
         width: 100%;
+    }
+
+    .main {
+        width: 90%;
     }
 
     .lesson, .nameDay {
