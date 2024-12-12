@@ -108,8 +108,8 @@ button {
 
     #main, #schedule {
         width: 100%;
-        margin-top: 11vh;
-        margin-bottom: 15vh;
+        margin-top: 15vh;
+        margin-bottom: 20vh;
         overflow: auto;
     }
 
