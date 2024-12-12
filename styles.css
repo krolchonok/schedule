@@ -1,6 +1,13 @@
+:root {
+    --tg-theme-button-text-color: white;
+    --tg-theme-button-color: #323338;
+    --tg-theme-bg-color: #1E2337;
+    --tg-theme-text-color: white;
+    --semibackground: #323338;
+}
 body {
-    background-color: #1E2337;
-    color: white;
+    background-color: var(--tg-theme-bg-color);
+    color: var(--tg-theme-text-color);
     display: flex;
     height: 100%;
     margin: 0;
@@ -28,7 +35,7 @@ body {
 
 p {
     margin: 10px;
-    background-color: black;
+    background-color: var(--tg-theme-button-color);
     padding: 20px;
     border: 0;
     border-radius: 15px;
@@ -42,7 +49,7 @@ p {
 }
 
 .nameDay {
-    background-color: black;
+    background-color: var(--tg-theme-button-color);
     padding: 10px;
     border: 0;
     border-radius: 15px;
@@ -54,7 +61,7 @@ p {
 }
 
 .lesson {
-    background-color: black;
+    background-color: var(--tg-theme-button-color);
     padding: 10px;
     border: 0;
     border-radius: 15px;
@@ -75,7 +82,7 @@ p {
 button {
     font-size: large;
     border: 0;
-    background-color: black;
+    background-color: var(--tg-theme-button-color);
     color: white;
     padding: 10px;
     margin: 2px 2px;
