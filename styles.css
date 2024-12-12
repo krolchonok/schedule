@@ -7,7 +7,7 @@
 }
 body {
     background-color: var(--tg-theme-bg-color);
-    color: var(--tg-theme-text-color);
+    color: var(--tg-theme-button-text-color);
     display: flex;
     height: 100%;
     margin: 0;
