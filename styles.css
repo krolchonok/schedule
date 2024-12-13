@@ -1,6 +1,5 @@
 :root {
-  /* background-color: var(--tg-theme-bg-color); */
-  background-color: red;
+  background-color: var(--tg-theme-bg-color);
   color: white;
   font-size: 1.5rem;
   --tg-theme-button-text-color: white;
@@ -64,7 +63,7 @@ body {
   width: 100%;
   background-color: var(--tg-theme-button-color);
   padding: 0.7rem 0;
-  border-bottom: 3px solid var(--tg-theme-bg-color);
+  border: 0;
   border-radius: 0 0 1rem 1rem;
   color: var(--tg-theme-button-text-color);
 }
@@ -111,5 +110,4 @@ body {
 
 #uprow {
   border-radius: 20px 0 0 0;
-  border-top: 3px solid var(--tg-theme-bg-color);
 }
