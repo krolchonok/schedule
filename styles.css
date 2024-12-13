@@ -1,5 +1,6 @@
 :root {
-  background-color: var(--tg-theme-bg-color);
+  /* background-color: var(--tg-theme-bg-color); */
+  background-color: red;
   color: white;
   font-size: 1.5rem;
   --tg-theme-button-text-color: white;
