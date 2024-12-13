@@ -63,7 +63,7 @@ body {
   width: 100%;
   background-color: var(--tg-theme-button-color);
   padding: 0.7rem 0;
-  border: 2px solid var(--tg-theme-bg-color);
+  border: 3px solid var(--tg-theme-bg-color);
   border-radius: 0 0 1rem 1rem;
   color: var(--tg-theme-button-text-color);
 }
