@@ -78,14 +78,13 @@ body {
   margin: 0.2rem 1rem;
   border: 0;
   border-radius: 1rem;
-  color: var(--tg-theme-button-text-color);
 }
 
 .inInfoBlock {
   padding: 0 0.5rem;
   width: 100%;
   font-size: 0.9rem;
-  color: var(--tg-theme-text-color);
+  color: var(--tg-theme-button-text-color);
 }
 
 .listInfo {
