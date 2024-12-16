@@ -138,7 +138,7 @@
 
     const schedulejson = {
         "Понедельник":
-            "08:30-10:00 Теория информации и кодирования (Л), доцент Задорожнева Ю.В., Ауд. 1-19 М<br>10:10-11:40 Теория информации и кодирования (Лаб), доцент Задорожнева Ю.В., Ауд. 2-3б М<br>",
+            "08:30-10:00 Теория информации и кодирования (Л), доцент Задорожнева Ю.В., Ауд. 1-19 М<br>10:10-11:40 Теория информации и кодирования (Лаб), доцент Задорожнева Ю.В., Ауд. 2-3б М",
         "Вторник": {
             "Числитель": "12:00-13:30 Комплексная система защиты информации (Л), доцент Стебенькова Н.А., Ауд. 2-17 М<br>13:40-15:10 Теория электросвязи (Л), старший преподаватель Ермакова Н.Н., Ауд. 2-17 М<br>15:20-16:50 Теория электросвязи (Пр), старший преподаватель Ермакова Н.Н., Ауд. 2-17 М<br>17:00-18:30 Электроника и схемотехника (Пр), доцент Стебеньков А.М., Ауд. 2-17 М",
             "Знаменатель": "12:00-13:30 Комплексная система защиты информации (Пр), доцент Стебенькова Н.А., Ауд. 2-17 М<br>13:40-15:10 Теория электросвязи (Л), старший преподаватель Ермакова Н.Н., Ауд. 2-17 М<br>15:20-16:50 <br>17:00-18:30 "
@@ -255,6 +255,7 @@
                 lessonDiv.classList.add('infoBlock');
 
                 const lessonDivIn = document.createElement('div');
+                console.log(match);
                 lessonDivIn.innerHTML = parseToNormalView(match);
                 lessonDivIn.classList.add('inInfoBlock');
                 lessonDiv.appendChild(lessonDivIn);
@@ -278,7 +279,9 @@
                 const lessonDiv = document.createElement('div');
                 lessonDiv.classList.add('infoBlock');
 
+
                 const lessonDivIn = document.createElement('div');
+                console.log(match);
                 lessonDivIn.innerHTML = parseToNormalView(match);
                 lessonDivIn.classList.add('inInfoBlock');
                 lessonDiv.appendChild(lessonDivIn);
