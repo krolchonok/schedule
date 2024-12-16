@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="tginit.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 </head>
 
 <head>
@@ -23,39 +23,53 @@
         <div class="listInfo" id="listInfo">
         </div>
     </div>
-
-    <!-- <div class="bottombar">
-        <div id="uprow" class="rowButton">
-            <button id="today">Сегодня</button>
-            <button id="tommorow">Завтра</button>
+    <div id="overlay"></div>
+    <div id="selecterDay">
+        Выбери день:
+        <div class="days">
+            <button onclick="selectD(1)">Понедельник</button>
+            <button onclick="selectD(2)">Вторник</button>
+            <button onclick="selectD(3)">Среда</button>
+            <button onclick="selectD(4)">Четверг</button>
+            <button onclick="selectD(5)">Пятница</button>
+            <button onclick="selectD(6)">Суббота</button>
         </div>
-        <div class="rowButton">
-            <button id="selectDay">Определенный день</button>
+    </div>
+    <div id="selecterName">
+        Выбери неделю:
+        <div class="days">
+            <button onclick="selectDN('Числитель')">Числитель</button>
+            <button onclick="selectDN('Знаменатель')">Знаменатель</button>
         </div>
-    </div> -->
+    </div>
 </body>
 
 <script>
     const shortNameDay = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Суб"];
     const nameDay = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-    const shower = document.getElementById("listInfo")
 
-    function getTodayNumber() {
+    const shower = document.getElementById("listInfo")
+    const selecterName = document.getElementById('selecterName');
+    const overlay = document.getElementById('overlay')
+    const selecterDay = document.getElementById('selecterDay')
+    const addToHomeScreen = document.getElementById('addToHomeScreen');
+
+    var lastselectday = 1;
+
+    function getTodayNumber(tommorow = false) {
         const today = new Date();
+        if (tommorow) {
+            today.setDate(today.getDate() + 1);
+        }
         const dayOfWeek = today.getDay();
         return dayOfWeek
     }
 
-    function getTommorowNumber() {
-        const today = new Date();
-        const dayOfWeek = today.getDay() + 1;
-        return dayOfWeek
-    }
 
     function getNowWeekName(tommorow = false) {
         var today = new Date();
 
-        if (tommorow != false) {
+        if (tommorow) {
             today.setDate(today.getDate() + 1);
         }
 
@@ -95,6 +109,7 @@
     }
 
     function parseToNormalView(array) {
+
         time = `${array[1]} - ${array[2]}`
         name = `${array[3]}`
         switch (array[4]) {
@@ -115,16 +130,15 @@
 
         text = `⌚ ${time}<br>
 📖 ${name}<br>
+🔎 ${type}<br>
 🧑‍🏫 ${teacher}<br>
 🚪 ${number}<br>`
         return text
     }
 
     const schedulejson = {
-        "Понедельник": {
-            "Числитель": "08:30-10:00 Теория информации и кодирования (Л), доцент Задорожнева Ю.В., Ауд. 1-19 М<br>10:10-11:40 Теория информации и кодирования (Лаб), доцент Задорожнева Ю.В., Ауд. 2-3б М<br>12:00-13:30 Линии связи (Л),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М<br>13:40-15:10 Линии связи (Л),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М",
-            "Знаменатель": "08:30-10:00 Теория информации и кодирования (Л), доцент Задорожнева Ю.В., Ауд. 1-19 М<br>10:10-11:40 Теория информации и кодирования (Лаб), доцент Задорожнева Ю.В., Ауд. 2-3б М<br>12:00-13:30 Линии связи (Пр),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М<br>13:40-15:10 Линии связи (Пр),  старший преподаватель Гомазкова Л.К., Ауд. 2-13 М"
-        },
+        "Понедельник":
+            "08:30-10:00 Теория информации и кодирования (Л), доцент Задорожнева Ю.В., Ауд. 1-19 М<br>10:10-11:40 Теория информации и кодирования (Лаб), доцент Задорожнева Ю.В., Ауд. 2-3б М<br>",
         "Вторник": {
             "Числитель": "12:00-13:30 Комплексная система защиты информации (Л), доцент Стебенькова Н.А., Ауд. 2-17 М<br>13:40-15:10 Теория электросвязи (Л), старший преподаватель Ермакова Н.Н., Ауд. 2-17 М<br>15:20-16:50 Теория электросвязи (Пр), старший преподаватель Ермакова Н.Н., Ауд. 2-17 М<br>17:00-18:30 Электроника и схемотехника (Пр), доцент Стебеньков А.М., Ауд. 2-17 М",
             "Знаменатель": "12:00-13:30 Комплексная система защиты информации (Пр), доцент Стебенькова Н.А., Ауд. 2-17 М<br>13:40-15:10 Теория электросвязи (Л), старший преподаватель Ермакова Н.Н., Ауд. 2-17 М<br>15:20-16:50 <br>17:00-18:30 "
@@ -132,7 +146,7 @@
         "Среда": "13:40-15:10 Сети и системы передачи информации (Л), доцент Ромасевич П.В., Ауд. 2-13 М<br>15:20-16:50 Сети и системы передачи информации (Пр), доцент Ромасевич П.В., Ауд. 2-13 М<br>17:00-18:30 Цифровые системы передачи (Пр), доцент Ромасевич П.В., Ауд. 2-13 М",
         "Четверг": {
             "Числитель": "12:00-13:30 Теория электросвязи (Лаб), старший преподаватель Ермакова Н.Н., Ауд. 2-06 М<br>13:40-15:10 Теория электросвязи (Пр), старший преподаватель Ермакова Н.Н., Ауд. 2-06 М",
-            "Знаменатель": "12:00-13:30 <br>13:40-15:10 "
+            "Знаменатель": "Нет"
         },
         "Пятница": {
             "Числитель": "12:00-13:30 Системы коммутаций (Лаб), доцент Семенов Е.С., Ауд. 2-06 М<br>13:40-15:10 Комплексная система защиты информации (Лаб), доцент Стебенькова Н.А., Ауд. 2-13а М<br>15:20-16:50 Комплексная система защиты информации (Лаб), доцент Стебенькова Н.А., Ауд. 1-19 М",
@@ -142,6 +156,9 @@
     }
 
     function checkSplit(day) {
+        if (day === 0) {
+            return false
+        }
         const infoShedule = schedulejson[nameDay[day]]
         const nowDay = Object.keys(infoShedule)
         if (nowDay.length === 2) {
@@ -151,10 +168,59 @@
         }
     }
 
-    function getDaySchedule(nameDayC, nameWeekC) {
+    function selectDay() {
 
+        selecterDay.style.display = 'flex';
+        overlay.style.display = 'block';
+
+
+        overlay.onclick = function (event) {
+            if (event.target === overlay) {
+                selecterDay.style.display = "none";
+                selecterName.style.display = "none";
+                overlay.style.display = "none";
+                addToHomeScreen.style.display = "none";
+            }
+        };
+
+    }
+
+    function selectName() {
+
+
+        selecterDay.style.display = 'flex';
+        overlay.style.display = 'block';
+
+    }
+
+    function selectD(day) {
+        lastselectday = day;
+        selecterDay.style.display = "none";
+        overlay.style.display = "none";
+        if (checkSplit(day)) {
+            selecterName.style.display = 'flex';
+            overlay.style.display = 'block';
+        } else {
+            getDaySchedule(day, false)
+        }
+    }
+
+    function selectDN(name) {
+        selecterName.style.display = "none";
+        overlay.style.display = "none";
+        getDaySchedule(lastselectday, name);
+    }
+
+    function getDaySchedule(nameDayC, nameWeekC) {
+        if (nameDayC === 0) {
+            shower.textContent = "";
+            const lessonDiv = document.createElement('div');
+            lessonDiv.classList.add('infoBlock')
+            lessonDiv.innerHTML = "Воскресение, отдыхаем"
+            shower.appendChild(lessonDiv);
+            return
+        }
         const infoShedule = schedulejson[nameDay[nameDayC]]
-        console.log(infoShedule)
         const nowDay = Object.keys(infoShedule)
 
         const regex = /^(\d{2}:\d{2})-(\d{2}:\d{2})\s(.+?)\s\((Л|Лаб|Пр)\)\s*,\s*(.+?),\s*Ауд\.\s([\d\-]+[а-яА-Я]?\s?[МК]?)$/;
@@ -167,9 +233,20 @@
             ? `${nameDay[nameDayC]} | ${nameWeekC}`
             : `${nameDay[nameDayC]}`;
         shower.appendChild(lessonDiv);
+
         if (nowDay.length === 2) {
             const text = infoShedule[nameWeekC]
             const list = text.split("<br>");
+
+            if (text === 'Нет') {
+                shower.textContent = "";
+                const lessonDiv = document.createElement('div');
+                lessonDiv.classList.add('infoBlock')
+                lessonDiv.innerHTML = `${nameDay[nameDayC]} | ${nameWeekC} | Пар нет`
+                shower.appendChild(lessonDiv);
+                return
+            }
+
             list.forEach(function (element, index, array) {
                 const match = element.match(regex);
 
@@ -185,11 +262,19 @@
                 shower.appendChild(lessonDiv);
             });
         } else {
+
+            if (infoShedule === 'Нет') {
+                shower.textContent = "";
+                const lessonDiv = document.createElement('div');
+                lessonDiv.classList.add('infoBlock')
+                lessonDiv.innerHTML = `${nameDay[nameDayC]} | Пар нет`
+                shower.appendChild(lessonDiv);
+                return
+            }
+
             const list = infoShedule.split("<br>");
             list.forEach(function (element, index, array) {
-                console.log(element);
                 const match = element.match(regex);
-                console.log(match);
                 const lessonDiv = document.createElement('div');
                 lessonDiv.classList.add('infoBlock');
 
@@ -203,25 +288,32 @@
         }
     }
 
-    function today() {
-        if (checkSplit(getTodayNumber())) {
-            getDaySchedule(getTodayNumber(), getNowWeekName())
+    var nowToday = false;
+
+    function switchDay() {
+        var day = !nowToday ? "Завтра" : "Сегодня";
+        console.log(nowToday);
+        console.log(getTodayNumber(true));
+        Telegram.WebApp.MainButton.showProgress();
+        Telegram.WebApp.MainButton.text = day;
+        Telegram.WebApp.MainButton.hideProgress();
+        if (!nowToday) {
+            nowToday = true;
+            if (checkSplit(getTodayNumber())) {
+                getDaySchedule(getTodayNumber(), getNowWeekName());
+            } else {
+                getDaySchedule(getTodayNumber(), false);
+            }
         } else {
-            getDaySchedule(getTodayNumber(), false)
+            nowToday = false;
+            if (checkSplit(getTodayNumber(true))) {
+                getDaySchedule(getTodayNumber(true), getNowWeekName(true));
+            } else {
+                getDaySchedule(getTodayNumber(true), false);
+            }
         }
+
     }
-
-    function tommorow() {
-        if (checkSplit(getTodayNumber() + 1)) {
-            getDaySchedule(getTodayNumber() + 1, getNowWeekName(true))
-        } else {
-            getDaySchedule(getTodayNumber() + 1, false)
-        }
-    }
-
-    document.getElementById("today").onclick = today;
-
-    document.getElementById("tommorow").onclick = tommorow;
 
     const date = new Date();
 
@@ -232,5 +324,35 @@
 
     document.getElementById("today_naming").textContent = `${getNowWeekName()} | ${formattedDate}   `
 
-    today();
+    switchDay();
+
+    const MyApp = {
+        initData: Telegram.WebApp.initData || "",
+        initDataUnsafe: Telegram.WebApp.initDataUnsafe || {},
+
+        init(options) {
+            Telegram.WebApp.isVerticalSwipesEnabled = false;
+            Telegram.WebApp.MainButton.setParams({
+                text: "Завтра",
+                position: "left",
+                is_visible: true,
+            }).onClick(() => {
+                switchDay();
+            });
+            Telegram.WebApp.SecondaryButton.setParams({
+                text: "Определенный день",
+                is_visible: true,
+                position: "right",
+                textColor: Telegram.WebApp.themeParams.button_text_color,
+                color: Telegram.WebApp.themeParams.button_color,
+            }).onClick(() => {
+                selectDay();
+            });
+
+
+            Telegram.WebApp.ready();
+        },
+    };
+    MyApp.init();
+    Telegram.WebApp.SecondaryButton.textColor = Telegram.WebApp.themeParams.button_text_color;
 </script>
