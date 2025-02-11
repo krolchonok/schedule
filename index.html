@@ -1,18 +1,15 @@
-<head>
-    <title>Расписание</title>
-    <link rel="stylesheet" href="styles.css">
-    <meta charset="UTF-8">
-    <link rel="icon" href="https://ushst.ru/favicon.ico" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-</head>
+<!DOCTYPE html>
+<html lang="ru">
 
 <head>
     <title>Расписание</title>
     <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
+    <link rel="icon" href="https://ushst.ru/files/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://kit.fontawesome.com/63ea5ec899.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
 </head>
 
 <body>
@@ -21,28 +18,39 @@
     </div>
 
     <div class="main">
-        <div class="listInfo" id="listInfo">
+        <div class="listInfo" id="listInfo"></div>
+    </div>
 
-        </div>
-    </div>
     <div id="overlay"></div>
-    <div id="selecterDay">
-        Выбери день:
+
+    <div id="selecterDay" style="display: none;">
+        <div>Выбери день:</div>
         <div class="days">
-            <button onclick="selectD(1)">Понедельник</button>
-            <button onclick="selectD(2)">Вторник</button>
-            <button onclick="selectD(3)">Среда</button>
-            <button onclick="selectD(4)">Четверг</button>
-            <button onclick="selectD(5)">Пятница</button>
-            <button onclick="selectD(6)">Суббота</button>
+            <button class="buttonDay" onclick="SelectDay(1)" aria-label="Понедельник">Понедельник</button>
+            <button class="buttonDay" onclick="SelectDay(2)" aria-label="Вторник">Вторник</button>
+            <button class="buttonDay" onclick="SelectDay(3)" aria-label="Среда">Среда</button>
+            <button class="buttonDay" onclick="SelectDay(4)" aria-label="Четверг">Четверг</button>
+            <button class="buttonDay" onclick="SelectDay(5)" aria-label="Пятница">Пятница</button>
+            <button class="buttonDay" onclick="SelectDay(6)" aria-label="Суббота">Суббота</button>
         </div>
     </div>
-    <div id="selecterName">
+
+    <!-- Выбор недели -->
+    <div id="selecterName" style="display: none;">
         Выбери неделю:
         <div class="days">
-            <button onclick="selectDN('Числитель')">Числитель</button>
-            <button onclick="selectDN('Знаменатель')">Знаменатель</button>
+            <button class="buttonDay" onclick="OpenNameWeekSelector('Числитель')" aria-label="Числитель">Числитель</button>
+            <button class="buttonDay" onclick="OpenNameWeekSelector('Знаменатель')" aria-label="Знаменатель">Знаменатель</button>
         </div>
     </div>
+
+    <!-- Подключение скриптов -->
+    <script src="./config.js"></script>
+    <script src="./utils.js"></script>
+    <script src="./schedule.js"></script>
+    <script src="./app.js"></script>
+    <script src="./scripts.js"></script>
+
 </body>
-<script src="scripts.js"></script>
+
+</html>
