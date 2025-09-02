@@ -9,7 +9,7 @@ function getCookies() {
 
 function checkCookie(key) {
   const cookies = getCookies();
-  return cookies.hasOwnProperty(key);
+  return Object.prototype.hasOwnProperty.call(cookies, key);
 }
 
 function getCookie(name) {
@@ -21,4 +21,10 @@ function getCookie(name) {
     }
   }
   return null;
+}
+
+function setCookie(name, value, years = 10) {
+  const expires = new Date();
+  expires.setFullYear(expires.getFullYear() + years);
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; expires=${expires.toUTCString()}`;
 }
