@@ -1,25 +1,24 @@
-var lastselectday = 1;
-
 function getTodayNumber(tommorow = false) {
   const today = new Date();
   if (tommorow) {
     today.setDate(today.getDate() + 1);
   }
-  const dayOfWeek = today.getDay();
-  return dayOfWeek;
+  return today.getDay();
 }
 
 function getNowWeekName(tommorow = false) {
-  var today = new Date();
+  const today = new Date();
 
   if (tommorow) {
     today.setDate(today.getDate() + 1);
   }
 
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-  var newYear = false;
+  let dd = today.getDate();
+  let mm = today.getMonth() + 1;
+  const yyyy = today.getFullYear();
+  let Yseptember;
+  let september;
+
   if (dd < 10) {
     dd = "0" + dd;
   }
@@ -27,29 +26,24 @@ function getNowWeekName(tommorow = false) {
     mm = "0" + mm;
   }
   if (mm < 9) {
-    newYear = true;
     Yseptember = yyyy - 1;
-    var september = new Date(yyyy - 1, 8, 1);
+    september = new Date(yyyy - 1, 8, 1);
   } else {
     Yseptember = yyyy;
-    var september = new Date(yyyy, 8, 1);
+    september = new Date(yyyy, 8, 1);
   }
-  dayOfSeptember = (september.getDay() + 6) % 7;
+  const dayOfSeptember = (september.getDay() + 6) % 7;
 
+  let firstWeak;
   if (dayOfSeptember == 6) {
     firstWeak = new Date(Yseptember, 8, 1);
   } else {
     firstWeak = new Date(Yseptember, 7, 31 - dayOfSeptember);
   }
 
-  var WeaksNumber =
+  const WeaksNumber =
     Math.ceil((today - firstWeak) / (7 * 24 * 60 * 60 * 1000)) - 1;
-  if (WeaksNumber % 2 == 0) {
-    today = "Числитель";
-  } else {
-    today = "Знаменатель";
-  }
-  return today;
+  return WeaksNumber % 2 == 0 ? "Числитель" : "Знаменатель";
 }
 
 function OpenDaySelector() {
@@ -66,7 +60,7 @@ function OpenDaySelector() {
 }
 
 function SelectDay(day) {
-  lastselectday = day;
+  lastSelectedDay = day;
   selecterDay.style.display = "none";
   overlay.style.display = "none";
   if (checkSplit(day)) {
@@ -80,13 +74,13 @@ function SelectDay(day) {
 function OpenNameWeekSelector(name) {
   selecterName.style.display = "none";
   overlay.style.display = "none";
-  setDaySchedule(lastselectday, name);
+  setDaySchedule(lastSelectedDay, name);
 }
 
-var nowToday = false;
+let nowToday = false;
 
 function switchDay() {
-  var day = !nowToday ? "Завтра" : "Сегодня";
+  const day = !nowToday ? "Завтра" : "Сегодня";
   Telegram.WebApp.MainButton.showProgress();
   Telegram.WebApp.MainButton.text = day;
   Telegram.WebApp.MainButton.hideProgress();
@@ -115,7 +109,7 @@ function startMiniApp() {
   }
 }
 
-startMiniApp()
+startMiniApp();
 
 function newOpenDaySelector() {
   cleanMainScreen();
@@ -125,42 +119,39 @@ function newOpenDaySelector() {
     const button = document.createElement("button");
     button.textContent = item.name;
     button.className = "buttonSelector";
-    button.addEventListener("click", function () {
-      newSelectDay(item.data)
+    button.addEventListener("click", () => {
+      newSelectDay(item.data);
     });
     shower.appendChild(button);
   });
 }
 
 function newSelectDay(day) {
-  lastselectday = day;
+  lastSelectedDay = day;
   if (checkSplit(day)) {
-    newOpenNameWeekSelector()
+    newOpenNameWeekSelector();
   } else {
     setDaySchedule(day, false);
   }
 }
 
-var oldStyle = getCookie("oldStyle") | true;
+let oldStyle = getCookie("oldStyle") || true;
 
 function oldStyleSwitcher() {
   oldStyle = !oldStyle;
-  const expires = new Date();
-  expires.setFullYear(expires.getFullYear() + 10);
-  document.cookie = `oldStyle=${oldStyle
-    }; path=/; expires=${expires.toUTCString()}`;
+  setCookie("oldStyle", oldStyle);
 }
 
 function newOpenNameWeekSelector() {
   cleanMainScreen();
-  topBarSetText(nameDay[lastselectday]);
+  topBarSetText(nameDay[lastSelectedDay]);
 
   buttonNameWeekDay.forEach((item) => {
     const button = document.createElement("button");
     button.textContent = item;
     button.className = "buttonSelector";
-    button.addEventListener("click", function () {
-      OpenNameWeekSelector(item)
+    button.addEventListener("click", () => {
+      OpenNameWeekSelector(item);
     });
     shower.appendChild(button);
   });

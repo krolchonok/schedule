@@ -1,24 +1,13 @@
 function parseToNormalView(array) {
-  const time = `${array[1]} - ${array[2]}`;
-  const name = `${array[3]}`;
-  let type;
-  switch (array[4]) {
-    case "Л":
-      type = "Лекция";
-      break;
-    case "Лаб":
-      type = "Лабораторная работа";
-      break;
-    case "Пр":
-      type = "Практика";
-      break;
-    default:
-      type = "Неизвестный тип";
-  }
-  const teacher = array[5];
-  const number = array[6];
+  const [, start, end, name, typeCode, teacher, number] = array;
+  const lessonTypes = {
+    "Л": "Лекция",
+    "Лаб": "Лабораторная работа",
+    "Пр": "Практика",
+  };
+  const type = lessonTypes[typeCode] || "Неизвестный тип";
 
-  return `⌚ ${time}<br>
+  return `⌚ ${start} - ${end}<br>
 📖 ${name}<br>
 🔎 ${type}<br>
 🧑‍🏫 ${teacher}<br>
@@ -27,12 +16,9 @@ function parseToNormalView(array) {
 
 function hasDayInSchedule(dayNumber) {
   const group = getCookie("group");
-
-  if (nameDay[dayNumber] in schedulejson[group]) {
-    return true;
-  } else {
-    return false;
-  }
+  const dayName = nameDay[dayNumber];
+  const groupSchedule = schedulejson[group] || {};
+  return Boolean(groupSchedule[dayName]);
 }
 
 function checkSplit(day) {
@@ -40,15 +26,8 @@ function checkSplit(day) {
     return false;
   }
   const group = getCookie("group");
-
-  const groupshe = schedulejson[group];
-  const infoShedule = groupshe[nameDay[day]];
-  const nowDay = Object.keys(infoShedule);
-  if (nowDay.length === 2) {
-    return true;
-  } else {
-    return false;
-  }
+  const infoSchedule = schedulejson[group][nameDay[day]];
+  return Object.keys(infoSchedule).length === 2;
 }
 
 function setDaySchedule(dayNumber, nameWeek) {
@@ -65,23 +44,24 @@ function setDaySchedule(dayNumber, nameWeek) {
   }
 
   const groupSchedule = schedulejson[group];
-  var textScheduleOnDay = groupSchedule[nameDay[dayNumber]]
+  let textScheduleOnDay = groupSchedule[nameDay[dayNumber]];
 
-  let textToShow = "";
-  topBarSetText(nameWeek
-    ? `${nameDay[dayNumber]} | ${nameWeek}`
-    : `${nameDay[dayNumber]}`);
+  topBarSetText(
+    nameWeek ? `${nameDay[dayNumber]} | ${nameWeek}` : `${nameDay[dayNumber]}`
+  );
 
   if (nameWeek) {
-    textScheduleOnDay = textScheduleOnDay[nameWeek]
+    textScheduleOnDay = textScheduleOnDay[nameWeek];
   }
 
   const list = textScheduleOnDay.split("<br>");
 
-  list.forEach(function (element) {
+  list.forEach((element) => {
     if (/^\d{2}:\d{2}-\d{2}:\d{2}$/.test(element.trim())) return;
 
     const match = element.match(regex);
+    if (!match) return;
+
     const lessonDiv = document.createElement("div");
     lessonDiv.classList.add("infoBlock");
 
@@ -91,10 +71,10 @@ function setDaySchedule(dayNumber, nameWeek) {
     lessonDiv.appendChild(lessonDivIn);
 
     const copyB = document.createElement("button");
-    copyB.innerHTML = "<i class='fa-regular fa-copy'></i>"
+    copyB.innerHTML = "<i class='fa-regular fa-copy'></i>";
     copyB.className = "copyButton";
     lessonDiv.appendChild(copyB);
-    copyB.addEventListener("click", function () {
+    copyB.addEventListener("click", () => {
       const textToCopy = lessonDivIn.innerText;
       navigator.clipboard.writeText(textToCopy);
     });
@@ -111,11 +91,8 @@ function showSelecterGroup() {
     const button = document.createElement("button");
     button.textContent = item;
     button.className = "buttonSelector";
-    button.addEventListener("click", function () {
-      const expires = new Date();
-      expires.setFullYear(expires.getFullYear() + 10);
-      document.cookie = `group=${item
-        }; path=/; expires=${expires.toUTCString()}`;
+    button.addEventListener("click", () => {
+      setCookie("group", item);
       startMiniApp();
     });
     shower.appendChild(button);
