@@ -135,7 +135,7 @@ function newSelectDay(day) {
   }
 }
 
-let oldStyle = getCookie("oldStyle") || true;
+let oldStyle = getCookie("oldStyle") !== "false";
 
 function oldStyleSwitcher() {
   oldStyle = !oldStyle;

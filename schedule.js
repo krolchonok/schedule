@@ -63,7 +63,9 @@ function setDaySchedule(dayNumber, nameWeek) {
     if (!match) return;
 
     const lessonDiv = document.createElement("div");
-    lessonDiv.classList.add("infoBlock");
+    const typeClassMap = { "Л": "lecture", "Лаб": "lab", "Пр": "practice" };
+    const typeCode = match[4];
+    lessonDiv.classList.add("infoBlock", typeClassMap[typeCode] || "");
 
     const lessonDivIn = document.createElement("div");
     lessonDivIn.innerHTML = parseToNormalView(match);
