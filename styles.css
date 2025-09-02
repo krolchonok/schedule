@@ -7,7 +7,7 @@
 
 :root {
   background-color: var(--tg-theme-secondary-bg-color);
-  color: white;
+  color: var(--tg-theme-text-color);
   font-size: 1.3rem;
   --tg-theme-button-text-color: white;
   --tg-theme-button-color: #0098ea;
@@ -43,6 +43,12 @@
   color: var(--tg-theme-text-color);
   background: var(--tg-theme-bg-color);
   font-size: 0.9rem;
+}
+
+.buttonDay:hover,
+.buttonSelector:hover {
+  background-color: var(--tg-theme-button-color);
+  color: var(--tg-theme-button-text-color);
 }
 
 body {
@@ -104,6 +110,19 @@ body {
   position: relative;
 }
 
+/* Цветовые акценты для разных типов занятий */
+.infoBlock.lecture {
+  border-left: 4px solid var(--tg-theme-button-color);
+}
+
+.infoBlock.lab {
+  border-left: 4px solid #ffc107;
+}
+
+.infoBlock.practice {
+  border-left: 4px solid #34a853;
+}
+
 .inInfoBlock {
   padding: 0 0.5rem;
   width: 100%;
@@ -125,11 +144,11 @@ body {
 
 #tommorow {
   border-top-right-radius: 1rem;
-  border-left: 1px solid red;
+  border-left: 1px solid var(--tg-theme-button-color);
   padding-left: 0.5px;
 }
 #selectDay {
-  border-top: 1px solid red;
+  border-top: 1px solid var(--tg-theme-button-color);
 }
 
 #uprow {
